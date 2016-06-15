@@ -9,6 +9,10 @@ KanbanizePowerShell
 TrackITWebAPIPowerShell
 TrackITUnOfficial
 InvokeSQL
+TervisVirtualization
+TervisEnvironment
+TervisDHCP
+TervisCluster
 "@ -split "`r`n"
 
 function import-AllTervisGithubPowerShellModules {
