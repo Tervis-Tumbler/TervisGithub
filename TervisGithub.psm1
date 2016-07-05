@@ -13,6 +13,7 @@ TervisVirtualization
 TervisEnvironment
 TervisDHCP
 TervisCluster
+WriteVerboseAdvanced
 "@ -split "`r`n"
 
 function import-AllTervisGithubPowerShellModules {
