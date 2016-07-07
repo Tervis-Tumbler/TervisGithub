@@ -1,37 +1,21 @@
-﻿$GithubRootURL = "https://github.com/Tervis-Tumbler/"
+﻿function Get-TervisGithubPowerShellModules {
+    param(
+        $PowerShellModulesPath = ($ENV:PSModulepath -split ";")[0]
+    )
+    Set-Location $PowerShellModulesPath
 
-$TervisGithubPowerShellModules = @"
-TervisGithub
-TervisKanbanize
-New-MailToURI
-get-MultipleChoiceQuestionAnswered
-KanbanizePowerShell
-TrackITWebAPIPowerShell
-TrackITUnOfficial
-InvokeSQL
-TervisVirtualization
-TervisEnvironment
-TervisDHCP
-TervisCluster
-WriteVerboseAdvanced
-"@ -split "`r`n"
+    $TervisPowerShellGitHubRepositories = Invoke-WebRequest -uri "https://api.github.com/search/repositories?q=language:powershell+user:tervis-tumbler&sort=stars&order=desc" |
+    select -ExpandProperty Content | 
+    ConvertFrom-Json |
+    select -ExpandProperty Items
 
-function import-AllTervisGithubPowerShellModules {
-    $PowerShellModulesPath = ($ENV:PSModulepath -split ";")[0]
-    cd $PowerShellModulesPath
-
-    $TervisGithubPowerShellModules | % {
-        git clone $($GithubRootURL + $_ + ".git")
+    foreach($TervisPowerShellGitHubRepository in $TervisPowerShellGitHubRepositories) {
+        if (Test-Path $TervisPowerShellGitHubRepository.Name) {
+            Push-Location $TervisPowerShellGitHubRepository.Name
+            git pull
+            Pop-Location
+        } else {
+            git clone $($TervisPowerShellGitHubRepository.clone_url)
+        }
     }
-}
-
-function Update-PowerShellModulesFromGit {
-
-    $PowerShellModulesPath = ($ENV:PSModulepath -split ";")[0]
-    $DirectoriesWithModules = gci $PowerShellModulesPath
-    foreach ($Directory in $DirectoriesWithModules) {
-        cd $Directory.FullName
-        git pull
-    }
-    #(Get-Module -ListAvailable PowerShellIse*).path
 }
