@@ -1,4 +1,5 @@
 ﻿function Get-TervisGithubPowerShellModules {
+    [CmdletBinding()]
     param(
         $PowerShellModulesPath = ($ENV:PSModulepath -split ";")[0]
     )
@@ -11,10 +12,12 @@
 
     foreach($TervisPowerShellGitHubRepository in $TervisPowerShellGitHubRepositories) {
         if (Test-Path $TervisPowerShellGitHubRepository.Name) {
+            Write-Verbose "Pulling $TervisPowerShellGitHubRepository.Name"
             Push-Location $TervisPowerShellGitHubRepository.Name
             git pull
             Pop-Location
         } else {
+            Write-Verbose "Cloning $TervisPowerShellGitHubRepository.Name"
             git clone $($TervisPowerShellGitHubRepository.clone_url)
         }
     }
