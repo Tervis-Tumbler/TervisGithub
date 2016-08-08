@@ -5,12 +5,13 @@
     )
     Set-Location $PowerShellModulesPath
 
-    $TervisPowerShellGitHubRepositories = Invoke-WebRequest -uri "https://api.github.com/search/repositories?q=language:powershell+user:tervis-tumbler&sort=stars&order=desc" |
+    $TervisPowerShellGitHubRepositories = Invoke-WebRequest -uri "https://api.github.com/search/repositories?q=language:powershell+user:tervis-tumbler&sort=stars&order=desc" -UseBasicParsing |
     select -ExpandProperty Content | 
     ConvertFrom-Json |
     select -ExpandProperty Items
 
     foreach($TervisPowerShellGitHubRepository in $TervisPowerShellGitHubRepositories) {
+        $TervisPowerShellGitHubRepository.Name
         if (Test-Path $TervisPowerShellGitHubRepository.Name) {
             Write-Verbose "Pulling $TervisPowerShellGitHubRepository.Name"
             Push-Location $TervisPowerShellGitHubRepository.Name
