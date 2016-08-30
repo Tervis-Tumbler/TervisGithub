@@ -5,7 +5,7 @@
     )
     Set-Location $PowerShellModulesPath
 
-    $TervisPowerShellGitHubRepositories = Invoke-WebRequest -uri "https://api.github.com/search/repositories?q=language:powershell+user:tervis-tumbler&sort=stars&order=desc" -UseBasicParsing |
+    $TervisPowerShellGitHubRepositories = Invoke-WebRequest -uri "https://api.github.com/search/repositories?q=language:powershell+user:tervis-tumbler&sort=stars&order=desc&per_page=100" -UseBasicParsing |
     select -ExpandProperty Content | 
     ConvertFrom-Json |
     select -ExpandProperty Items
