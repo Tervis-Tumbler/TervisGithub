@@ -1,7 +1,7 @@
 ﻿function Get-TervisGithubPowerShellModules {
     [CmdletBinding()]
     param(
-        $PowerShellModulesPath = ($ENV:PSModulepath -split ";")[0]
+        $PowerShellModulesPath = ($env:PSMODULEPATH -split {$_ -in ":",";"})[0]
     )
     Set-Location $PowerShellModulesPath
 
