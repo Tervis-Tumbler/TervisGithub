@@ -1,4 +1,4 @@
-$PowerShellModulesPath = ($ENV:PSModulepath -split ";")[0]
+$PowerShellModulesPath = ($env:PSMODULEPATH -split {$_ -in ":",";"})[0]
 mkdir $PowerShellModulesPath
 cd $PowerShellModulesPath
 git clone https://github.com/Tervis-Tumbler/TervisGithub
