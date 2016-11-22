@@ -1,7 +1,7 @@
 ﻿function Get-TervisGithubPowerShellModules {
     [CmdletBinding()]
     param(
-        $PowerShellModulesPath = ($env:PSMODULEPATH -split {$_ -in ":",";"})[0]
+        $PowerShellModulesPath = (Get-UserPSModulePath)
     )
     Set-Location $PowerShellModulesPath
 
@@ -21,5 +21,13 @@
             Write-Verbose "Cloning $TervisPowerShellGitHubRepository.Name"
             git clone $($TervisPowerShellGitHubRepository.clone_url)
         }
+    }
+}
+
+Function Get-UserPSModulePath {
+    if ($env:PSMODULEPATH -match ":") { 
+        ($env:PSMODULEPATH -split ";")[0]
+    } else {
+        ($env:PSMODULEPATH -split ":")[0]
     }
 }
