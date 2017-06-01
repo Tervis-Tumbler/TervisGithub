@@ -48,3 +48,14 @@ Function Get-UserPSModulePath {
         ($env:PSMODULEPATH -split ":")[0]
     }
 }
+
+function Push-TervisPowershellModulesToRemoteComputer {
+    param (
+        [Parameter(Mandatory,ValueFromPipelineByPropertyName)]$ComputerName
+    )
+    $RemotePowerShellModulesPath = '\\' + $ComputerName + '\C$\Program Files\WindowsPowerShell\Modules'
+    $PSDrive = $ComputerName + '-C'
+    New-PSDrive -Name $PSDrive -PSProvider FileSystem -Root $RemotePowerShellModulesPath
+    $PSDrivePath = $PSDrive + ':\'
+    Invoke-TervisGithubPowerShellModulesSync -PowerShellModulesPath $PSDrivePath -ErrorAction SilentlyContinue
+}
