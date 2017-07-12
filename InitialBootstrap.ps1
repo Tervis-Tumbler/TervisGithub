@@ -7,6 +7,7 @@ $PowerShellModulesPath = if ($env:PSMODULEPATH -match ":") {
 New-Item $PowerShellModulesPath -ErrorAction SilentlyContinue -Type Directory
 Set-Location $PowerShellModulesPath
 git clone https://github.com/Tervis-Tumbler/TervisGithub
+git clone https://github.com/Tervis-Tumbler/WebServicesPowerShellProxyBuilder
 
-Get-TervisGithubPowerShellModules
+Invoke-TervisGithubPowerShellModulesSync
 
