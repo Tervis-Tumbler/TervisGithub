@@ -42,10 +42,10 @@ function Invoke-TervisGithubPowerShellModulesSync {
 }
 
 Function Get-UserPSModulePath {
-    if ($env:PSMODULEPATH -match ":") { 
-        ($env:PSMODULEPATH -split ";")[0]
+    if ($env:PSModulePath -match ":") { 
+        ($env:PSModulePath -split ";")[0]
     } else {
-        ($env:PSMODULEPATH -split ":")[0]
+        ($env:PSModulePath -split ":")[0]
     }
 }
 
