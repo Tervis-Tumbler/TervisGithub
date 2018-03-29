@@ -1,7 +1,7 @@
-$PowerShellModulesPath = if ($env:PSModulePath -match ":") { 
-    ($env:PSModulePath -split ":")[0]
-} else {
+$PowerShellModulesPath = if ($env:PSModulePath -match ";") { 
     ($env:PSModulePath -split ";")[0]
+} else {
+    ($env:PSModulePath -split ":")[0]
 }
 
 New-Item $PowerShellModulesPath -ErrorAction SilentlyContinue -Type Directory
