@@ -6,8 +6,6 @@ function Invoke-GithubSearch {
     param (
         $Uri
     )
-
-    Set-SecurityProtocol -SecurityProtocol Ssl3,Tls,Tls12
     $Response = Invoke-WebRequest -UseBasicParsing -Uri $Uri
     
     $Response |
